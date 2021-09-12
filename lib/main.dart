@@ -1,9 +1,4 @@
-//import 'dart:html';
-
 import 'package:mcqa_app/quizBrain.dart';
-
-import 'list_class.dart';
-
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,10 +14,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   // var question = ListClass().questionText[questionNumber];
+  QuizBrain quizBrain = QuizBrain();
 
-  int questionNumber = 0;
-  IconData? get trueIcons => Icons.check;
-  IconData? get falseIcon => Icons.add_outlined;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,9 +29,8 @@ class _MyAppState extends State<MyApp> {
               flex: 5,
               child: Center(
                child: Text(
-               ,
-
-                  style: TextStyle(
+              QuizBrain().questionText,
+               style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
                   ),
@@ -56,19 +48,17 @@ class _MyAppState extends State<MyApp> {
                   //onPressed button that will perform the action
                   // behind the button
                   onPressed: (){
-                    bool correctAnswer;
-                    if(correct == true){
+                    bool correctAnswer = QuizBrain().boolAnswer;
+                    if(correctAnswer == true){
                       print('Yes it is true');
-                      trueIcons;
                     }
                     else {
                       print('No it is not true');
-                      falseIcon;
-
                     }
 
                     setState(() {
-                      questionNumber++;
+                      quizBrain.nextQuestion();
+
                     });
                   },
                   style: ElevatedButton.styleFrom(
@@ -88,15 +78,15 @@ class _MyAppState extends State<MyApp> {
                   //onPressed button that will perform the action
                   // behind the button
                   onPressed: (){
-                    bool correct = combination[questionNumber].answer;
-                    if(correct == false){
+                    bool correctAnswer = QuizBrain().boolAnswer;
+                    if(correctAnswer == false){
                       print('yes it is false');
                     }
                     else {
                       print('NO it is not false');
                     }
                     setState(() {
-                      questionNumber++;
+                      quizBrain.nextQuestion();
 
                     });
                   },
@@ -111,8 +101,6 @@ class _MyAppState extends State<MyApp> {
               child: Row(
                 children: [
 
-                Icon(trueIcons),
-                  Icon(falseIcon),
           ],
               ),
             ),

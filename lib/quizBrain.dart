@@ -2,7 +2,7 @@
 import 'package:mcqa_app/list_class.dart';
 
 class QuizBrain{
-  int questionNumber = 0;
+  int _questionNumber = 0;
 List<QuestionAnswer> _questionAnswer = [
   QuestionAnswer('Some cats are actually allergic to humans', true, ),
   QuestionAnswer('You can lead a cow down stairs but not up stairs.', false),
@@ -30,5 +30,15 @@ List<QuestionAnswer> _questionAnswer = [
       'In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.',
       true),
 ];
-String get questionText => _questionAnswer[questionNumber].questions;
+
+ void nextQuestion(){
+   if(_questionNumber < _questionAnswer.length){
+     _questionNumber++;
+   }
+   print(_questionNumber);
+   print(_questionAnswer.length);
+
+  }
+String get questionText => _questionAnswer[_questionNumber].questions;
+bool get boolAnswer => _questionAnswer[_questionNumber].answer;
 }
