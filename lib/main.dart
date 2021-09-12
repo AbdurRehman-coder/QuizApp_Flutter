@@ -16,7 +16,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  List combination = [
+  List<QuestionAnswer> combination = [
     QuestionAnswer(q: 'There are understandable reasons why arguments occure about language', ans: false),
     QuestionAnswer(q: 'Our assessment of a person\'s intelligence is affected by the way he or she uses language', ans: true),
     QuestionAnswer(q: 'Descriptivism only appeared after the 18th century', ans: true),
@@ -26,7 +26,8 @@ class _MyAppState extends State<MyApp> {
   // var question = ListClass().questionText[questionNumber];
 
   int questionNumber = 0;
-
+  IconData? get trueIcons => Icons.check;
+  IconData? get falseIcon => Icons.add_outlined;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,7 +41,7 @@ class _MyAppState extends State<MyApp> {
               flex: 5,
               child: Center(
                child: Text(
-               combination[0],
+               combination[questionNumber].questions,
 
                   style: TextStyle(
                     fontSize: 20,
@@ -60,6 +61,17 @@ class _MyAppState extends State<MyApp> {
                   //onPressed button that will perform the action
                   // behind the button
                   onPressed: (){
+                    bool correct = combination[questionNumber].answer;
+                    if(correct == true){
+                      print('Yes it is true');
+                      trueIcons;
+                    }
+                    else {
+                      print('No it is not true');
+                      falseIcon;
+
+                    }
+
                     setState(() {
                       questionNumber++;
                     });
@@ -76,14 +88,21 @@ class _MyAppState extends State<MyApp> {
                 padding: EdgeInsets.all(20),
                 child: ElevatedButton(
                   child: Text(
-                      'True'
+                      'False'
                   ),
                   //onPressed button that will perform the action
                   // behind the button
                   onPressed: (){
-
+                    bool correct = combination[questionNumber].answer;
+                    if(correct == false){
+                      print('yes it is false');
+                    }
+                    else {
+                      print('NO it is not false');
+                    }
                     setState(() {
                       questionNumber++;
+
                     });
                   },
                   style: ElevatedButton.styleFrom(
@@ -97,6 +116,8 @@ class _MyAppState extends State<MyApp> {
               child: Row(
                 children: [
 
+                Icon(trueIcons),
+                  Icon(falseIcon),
           ],
               ),
             ),
