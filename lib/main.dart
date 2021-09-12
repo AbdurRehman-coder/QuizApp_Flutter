@@ -1,5 +1,7 @@
 //import 'dart:html';
 
+import 'package:mcqa_app/quizBrain.dart';
+
 import 'list_class.dart';
 
 import 'package:flutter/material.dart';
@@ -15,13 +17,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  List<QuestionAnswer> combination = [
-    QuestionAnswer(q: 'There are understandable reasons why arguments occure about language', ans: false),
-    QuestionAnswer(q: 'Our assessment of a person\'s intelligence is affected by the way he or she uses language', ans: true),
-    QuestionAnswer(q: 'Descriptivism only appeared after the 18th century', ans: true),
-    QuestionAnswer(q: 'Prescriptivism still exists today', ans: false),
-  ];
 
   // var question = ListClass().questionText[questionNumber];
 
@@ -41,7 +36,7 @@ class _MyAppState extends State<MyApp> {
               flex: 5,
               child: Center(
                child: Text(
-               combination[questionNumber].questions,
+               ,
 
                   style: TextStyle(
                     fontSize: 20,
@@ -61,7 +56,7 @@ class _MyAppState extends State<MyApp> {
                   //onPressed button that will perform the action
                   // behind the button
                   onPressed: (){
-                    bool correct = combination[questionNumber].answer;
+                    bool correctAnswer;
                     if(correct == true){
                       print('Yes it is true');
                       trueIcons;
