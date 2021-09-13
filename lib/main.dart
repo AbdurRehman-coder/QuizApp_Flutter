@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
               flex: 5,
               child: Center(
                child: Text(
-              QuizBrain().questionText,
+              quizBrain.getQuestionText(),
                style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.w400,
@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
                   //onPressed button that will perform the action
                   // behind the button
                   onPressed: (){
-                    bool correctAnswer = QuizBrain().boolAnswer;
+                    bool correctAnswer = quizBrain.getAnswer();
                     if(correctAnswer == true){
                       print('Yes it is true');
                     }
@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
                   //onPressed button that will perform the action
                   // behind the button
                   onPressed: (){
-                    bool correctAnswer = QuizBrain().boolAnswer;
+                    bool correctAnswer = quizBrain.getAnswer();
                     if(correctAnswer == false){
                       print('yes it is false');
                     }

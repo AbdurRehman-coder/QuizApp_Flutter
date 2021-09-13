@@ -1,6 +1,5 @@
 
 import 'package:mcqa_app/list_class.dart';
-
 class QuizBrain{
   int _questionNumber = 0;
 List<QuestionAnswer> _questionAnswer = [
@@ -32,13 +31,19 @@ List<QuestionAnswer> _questionAnswer = [
 ];
 
  void nextQuestion(){
-   if(_questionNumber < _questionAnswer.length){
-     _questionNumber++;
+   if(_questionNumber < _questionAnswer.length - 1){
+    _questionNumber++;
    }
    print(_questionNumber);
    print(_questionAnswer.length);
 
   }
-String get questionText => _questionAnswer[_questionNumber].questions;
-bool get boolAnswer => _questionAnswer[_questionNumber].answer;
+// String get questionText => _questionAnswer[_questionNumber].questions;
+// bool get boolAnswer => _questionAnswer[_questionNumber].answer;
+String getQuestionText(){
+   return _questionAnswer[_questionNumber].questions;
+}
+bool getAnswer(){
+   return _questionAnswer[_questionNumber].answer;
+}
 }
