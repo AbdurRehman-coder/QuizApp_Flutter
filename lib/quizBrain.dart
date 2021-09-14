@@ -1,5 +1,7 @@
 
+import 'package:flutter/material.dart';
 import 'package:mcqa_app/list_class.dart';
+
 class QuizBrain{
   int _questionNumber = 0;
 List<QuestionAnswer> _questionAnswer = [
@@ -33,9 +35,7 @@ List<QuestionAnswer> _questionAnswer = [
  void nextQuestion(){
    if(_questionNumber < _questionAnswer.length - 1){
     _questionNumber++;
-   }
-   print(_questionNumber);
-   print(_questionAnswer.length);
+    }
 
   }
 // String get questionText => _questionAnswer[_questionNumber].questions;
@@ -43,7 +43,17 @@ List<QuestionAnswer> _questionAnswer = [
 String getQuestionText(){
    return _questionAnswer[_questionNumber].questions;
 }
-bool getAnswer(){
+bool getCorrectAnswer(){
    return _questionAnswer[_questionNumber].answer;
 }
+bool? isFinished(){
+   if(_questionNumber >= _questionAnswer.length -1){
+     return true;
+   }
+   else {return false;}
+}
+void reset(){
+   _questionNumber = 0;
+}
+
 }
