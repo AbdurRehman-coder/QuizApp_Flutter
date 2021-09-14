@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:mcqa_app/quizBrain.dart';
+import 'package:mcqa_app/result.dart';
 
 //TODO: Step 2 - Import the rFlutter_Alert package here.
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -32,27 +32,22 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
+
   List<Icon> scoreKeeper = [];
+  int correctCounter = 0;
+  int falseCounter = 0;
 
   void checkAnswer(bool userPickedAnswer) {
     bool correctAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
-      //TODO: Step 4 - Use IF/ELSE to check if we've reached the end of the quiz. If so,
-      //On the next line, you can also use if (quizBrain.isFinished()) {}, it does the same thing.
+
       if (quizBrain.isFinished() == true) {
-        //TODO Step 4 Part A - show an alert using rFlutter_alert,
-
-        //This is the code for the basic alert from the docs for rFlutter Alert:
-        //Alert(context: context, title: "RFLUTTER", desc: "Flutter is awesome.").show();
-
-        //Modified for our purposes:
         Alert(
           context: context,
           type: AlertType.warning,
           title: 'Quiz App',
           desc: 'You\'ve completed the quiz.',
-
           buttons: [
             DialogButton(
               child: Text(
@@ -64,17 +59,27 @@ class _QuizPageState extends State<QuizPage> {
             ),
             DialogButton(
               child: Text(
-                "close",
+                "Result",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
-              onPressed: () => scoreKeeper,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => resulting(),
+                    //(totalMcqs: scoreKeeper.length, correctMcqs: correctCounter, wrongMcqs: 4,
+                   // percentage: 45.6,),
+                  ),
+                );
+              },
               gradient: LinearGradient(colors: [
                 Color.fromRGBO(116, 116, 191, 1.0),
                 Color.fromRGBO(52, 138, 199, 1.0)
               ]),
             )
           ],
-          style: AlertStyle(animationType: AnimationType.fromBottom,
+          style: AlertStyle(
+            animationType: AnimationType.fromBottom,
             isCloseButton: false,
             isOverlayTapDismiss: false,
             descStyle: TextStyle(fontWeight: FontWeight.bold),
@@ -89,7 +94,8 @@ class _QuizPageState extends State<QuizPage> {
             titleStyle: TextStyle(
               color: Colors.red,
             ),
-            alertAlignment: Alignment.center,),
+            alertAlignment: Alignment.center,
+          ),
         ).show();
 
         //TODO Step 4 Part C - reset the questionNumber,
@@ -102,11 +108,14 @@ class _QuizPageState extends State<QuizPage> {
       //TODO: Step 6 - If we've not reached the end, ELSE do the answer checking steps below 👇
       else {
         if (userPickedAnswer == correctAnswer) {
+          correctCounter++;
           scoreKeeper.add(Icon(
             Icons.check,
             color: Colors.green,
           ));
+
         } else {
+          falseCounter++;
           scoreKeeper.add(Icon(
             Icons.close,
             color: Colors.red,
@@ -143,9 +152,8 @@ class _QuizPageState extends State<QuizPage> {
           child: Padding(
             padding: EdgeInsets.all(15.0),
             child: ElevatedButton(
-              style:  ButtonStyle(
+              style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.green),
-
               ),
               child: Text(
                 'True',
@@ -187,5 +195,13 @@ class _QuizPageState extends State<QuizPage> {
         )
       ],
     );
+  }
+  Widget resulting(){
+    double percentValue = (correctCounter/quizBrain.arrayLength)*100;
+    percentValue = double.parse(percentValue.toStringAsFixed(2));
+    Result resultsss = Result(totalMcqs: quizBrain.arrayLength, correctMcqs: correctCounter,
+    wrongMcqs: falseCounter, percentage: percentValue,);
+    return resultsss;
+
   }
 }

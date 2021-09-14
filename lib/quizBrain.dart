@@ -54,6 +54,8 @@ bool? isFinished(){
 }
 void reset(){
    _questionNumber = 0;
+
 }
+late int arrayLength = _questionAnswer.length;
 
 }
