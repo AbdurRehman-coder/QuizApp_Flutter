@@ -8,7 +8,7 @@ import 'package:mcqa_app/theme.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
-MyTheme _theme = MyTheme();
+
 
 void main() => runApp(Quizzler());
 
