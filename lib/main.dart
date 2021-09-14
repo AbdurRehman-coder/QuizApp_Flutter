@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:mcqa_app/quizBrain.dart';
 import 'package:mcqa_app/result.dart';
+import 'package:mcqa_app/theme.dart';
+import 'package:mcqa_app/theme.dart';
 
 //TODO: Step 2 - Import the rFlutter_Alert package here.
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 QuizBrain quizBrain = QuizBrain();
+MyTheme _theme = MyTheme();
 
 void main() => runApp(Quizzler());
 
@@ -14,7 +17,6 @@ class Quizzler extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.grey.shade900,
         body: SafeArea(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -22,6 +24,7 @@ class Quizzler extends StatelessWidget {
           ),
         ),
       ),
+      theme: MyTheme.darkTheme(context),
     );
   }
 }
@@ -32,7 +35,6 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-
   List<Icon> scoreKeeper = [];
   int correctCounter = 0;
   int falseCounter = 0;
@@ -41,7 +43,6 @@ class _QuizPageState extends State<QuizPage> {
     bool correctAnswer = quizBrain.getCorrectAnswer();
 
     setState(() {
-
       if (quizBrain.isFinished() == true) {
         Alert(
           context: context,
@@ -68,7 +69,7 @@ class _QuizPageState extends State<QuizPage> {
                   MaterialPageRoute(
                     builder: (context) => resulting(),
                     //(totalMcqs: scoreKeeper.length, correctMcqs: correctCounter, wrongMcqs: 4,
-                   // percentage: 45.6,),
+                    // percentage: 45.6,),
                   ),
                 );
               },
@@ -97,7 +98,6 @@ class _QuizPageState extends State<QuizPage> {
             alertAlignment: Alignment.center,
           ),
         ).show();
-
         //TODO Step 4 Part C - reset the questionNumber,
         quizBrain.reset();
 
@@ -113,7 +113,6 @@ class _QuizPageState extends State<QuizPage> {
             Icons.check,
             color: Colors.green,
           ));
-
         } else {
           falseCounter++;
           scoreKeeper.add(Icon(
@@ -140,10 +139,7 @@ class _QuizPageState extends State<QuizPage> {
               child: Text(
                 quizBrain.getQuestionText(),
                 textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 25.0,
-                  color: Colors.white,
-                ),
+                style: Theme.of(context).textTheme.headline4,
               ),
             ),
           ),
@@ -196,12 +192,16 @@ class _QuizPageState extends State<QuizPage> {
       ],
     );
   }
-  Widget resulting(){
-    double percentValue = (correctCounter/quizBrain.arrayLength)*100;
-    percentValue = double.parse(percentValue.toStringAsFixed(2));
-    Result resultsss = Result(totalMcqs: quizBrain.arrayLength, correctMcqs: correctCounter,
-    wrongMcqs: falseCounter, percentage: percentValue,);
-    return resultsss;
 
+  Widget resulting() {
+    double percentValue = (correctCounter / quizBrain.arrayLength) * 100;
+    percentValue = double.parse(percentValue.toStringAsFixed(2));
+    Result resultsss = Result(
+      totalMcqs: quizBrain.arrayLength,
+      correctMcqs: correctCounter,
+      wrongMcqs: falseCounter,
+      percentage: percentValue,
+    );
+    return resultsss;
   }
 }
